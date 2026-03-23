@@ -2,7 +2,9 @@
 
 A production-grade React + TypeScript project management application with Kanban, List, and Timeline views.
 
+# live demo
 
+https://velozity-project-tracker-sepia.vercel.app/
 
 ## Features
 
