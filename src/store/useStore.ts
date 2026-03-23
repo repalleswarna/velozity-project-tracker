@@ -22,7 +22,7 @@ interface StoreState {
   updateTaskStatus: (
     taskId: string,
     status: TaskStatus,
-    dropIndex: number,
+    dropIndex?: number,
   ) => void;
   setFilters: (filters: Partial<Filters>) => void;
   setView: (view: ViewType) => void;
@@ -51,7 +51,7 @@ export const useStore = create<StoreState>((set, get) => ({
   },
   activeUsers: new Map(),
 
-  updateTaskStatus: (taskId: string, status: TaskStatus, dropIndex: number) => {
+  updateTaskStatus: (taskId: string, status: TaskStatus, dropIndex?: number) => {
     set((state) => {
       const tasks = [...state.tasks];
       const taskIndex = tasks.findIndex((t) => t.id === taskId);
@@ -63,6 +63,10 @@ export const useStore = create<StoreState>((set, get) => ({
       task.status = status;
 
       const statusTasks = tasks.filter((t) => t.status === status);
+
+      if (dropIndex === undefined) {
+        dropIndex = statusTasks.length;
+      }
 
       let insertIndex = 0;
       if (dropIndex === 0) {
